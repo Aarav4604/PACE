@@ -1,0 +1,6 @@
+module Pods_PACEIOS_PACEIOSTests {
+  umbrella header "Pods-PACEIOS-PACEIOSTests-umbrella.h"
+
+  export *
+  module * { export * }
+}

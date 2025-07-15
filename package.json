@@ -1,58 +1,70 @@
 {
-  "name": "pace-monorepo",
+  "name": "@pace/mobile",
   "version": "1.0.0",
-  "private": true,
-  "workspaces": [
-    "apps/*",
-    "packages/*"
-  ],
+  "description": "PACE Copy-Trading Mobile App",
+  "main": "index.js",
   "scripts": {
-    "dev": "concurrently \"npm run dev:api\" \"npm run dev:mobile\" \"npm run dev:ingest\" \"npm run dev:risk\"",
-    "dev:api": "cd apps/api && npm run start:dev",
-    "dev:mobile": "cd apps/mobile && npm run start",
-    "dev:ingest": "cd apps/services/ingest && python -m uvicorn main:app --reload --port 8001",
-    "dev:risk": "cd apps/services/risk && python -m uvicorn main:app --reload --port 8002",
-    "build": "npm run build:packages && npm run build:apps",
-    "build:packages": "npm run build --workspaces --if-present",
-    "build:apps": "cd apps/api && npm run build && cd ../mobile && npm run build",
-    "test": "npm run test --workspaces --if-present",
-    "lint": "npm run lint --workspaces --if-present",
-    "lint:fix": "npm run lint:fix --workspaces --if-present",
-    "seed": "cd apps/api && npm run seed",
-    "docker:up": "docker-compose up -d",
-    "docker:down": "docker-compose down",
-    "docker:build": "docker-compose build",
-    "clean": "npm run clean --workspaces --if-present && rm -rf node_modules",
-    "setup": "npm install && npm run docker:up && npm run seed"
+    "android": "react-native run-android",
+    "ios": "react-native run-ios",
+    "start": "react-native start",
+    "test": "jest",
+    "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
+    "lint:fix": "eslint . --ext .js,.jsx,.ts,.tsx --fix",
+    "build:android": "cd android && ./gradlew assembleRelease",
+    "build:ios": "cd ios && xcodebuild -workspace PACE.xcworkspace -scheme PACE -configuration Release -destination generic/platform=iOS -archivePath PACE.xcarchive archive"
+  },
+  "dependencies": {
+    "@react-native-async-storage/async-storage": "^1.19.0",
+    "@react-native-community/blur": "^4.4.1",
+    "@react-native-community/slider": "^4.5.7",
+    "@react-navigation/bottom-tabs": "^6.5.0",
+    "@react-navigation/native": "^6.1.0",
+    "@react-navigation/native-stack": "^6.9.0",
+    "@shopify/flash-list": "^1.8.3",
+    "@storybook/addon-ondevice-actions": "^9.0.14",
+    "@storybook/addon-ondevice-controls": "^9.0.14",
+    "@storybook/react-native": "^9.0.14",
+    "@tanstack/react-query": "^4.29.0",
+    "react": "18.2.0",
+    "react-native": "0.75.0",
+    "react-native-device-info": "^10.8.0",
+    "react-native-gesture-handler": "^2.27.1",
+    "react-native-haptic-feedback": "^2.3.3",
+    "react-native-linear-gradient": "^2.8.0",
+    "react-native-reanimated": "^3.18.0",
+    "react-native-safe-area-context": "^4.5.0",
+    "react-native-screens": "^3.20.0",
+    "react-native-splash-screen": "^3.3.0",
+    "react-native-svg": "^13.14.0",
+    "react-native-vector-icons": "^10.0.0",
+    "react-native-webview": "^13.2.0",
+    "socket.io-client": "^4.7.0",
+    "victory-native": "^36.6.0",
+    "zustand": "^5.0.6"
   },
   "devDependencies": {
-    "@types/node": "^20.0.0",
-    "concurrently": "^8.2.0",
-    "husky": "^8.0.3",
-    "lint-staged": "^15.0.0",
-    "prettier": "^3.0.0",
-    "typescript": "^5.0.0"
+    "@babel/core": "^7.20.0",
+    "@babel/preset-env": "^7.20.0",
+    "@babel/runtime": "^7.20.0",
+    "@react-native/eslint-config": "0.75.0",
+    "@react-native/metro-config": "0.75.0",
+    "@tsconfig/react-native": "^3.0.0",
+    "@types/react": "^18.0.0",
+    "@types/react-native": "^0.73.0",
+    "@types/react-native-vector-icons": "^6.4.0",
+    "babel-jest": "^29.2.1",
+    "eslint": "^8.19.0",
+    "jest": "^29.2.1",
+    "metro-react-native-babel-preset": "0.76.5",
+    "prettier": "^2.4.1",
+    "react-test-renderer": "18.2.0",
+    "typescript": "4.8.4"
   },
-  "engines": {
-    "node": ">=18.0.0",
-    "yarn": ">=1.22.0"
+  "jest": {
+    "preset": "react-native"
   },
-  "lint-staged": {
-    "*.{js,jsx,ts,tsx}": [
-      "eslint --fix",
-      "prettier --write"
-    ],
-    "*.{json,md,yml,yaml}": [
-      "prettier --write"
-    ],
-    "*.py": [
-      "black",
-      "flake8"
-    ]
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
+  "peerDependencies": {
+    "@pace/schemas": "workspace:*",
+    "@pace/ui-kit": "workspace:*"
   }
-} 
+}
