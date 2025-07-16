@@ -4,7 +4,7 @@
     "baseUrl": ".",
     "paths": {
       "@/*": ["src/*"],
-      "@pace/ui-kit": ["../../packages/ui-kit/src"],
+      "@pace/ui-kit": ["packages/ui-kit/src"],
       "@pace/schemas": ["../../packages/schemas/src"]
     },
     "allowSyntheticDefaultImports": true,

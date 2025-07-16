@@ -24,6 +24,11 @@ if linkage != nil
   use_frameworks! :linkage => linkage.to_sym
 end
 
+# Disable New Architecture (Fabric & TurboModules)
+ENV['RCT_NEW_ARCH_ENABLED'] = '0'
+# Skip :fabric pods when new arch is off
+$RN_DISABLE_FABRIC = 'true'
+
 target 'PACEIOS' do
   config = use_native_modules!
 
