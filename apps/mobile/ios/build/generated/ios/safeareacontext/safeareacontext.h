@@ -30,8 +30,6 @@
 #import <optional>
 #import <vector>
 
-
-NS_ASSUME_NONNULL_BEGIN
 namespace JS {
   namespace NativeSafeAreaContext {
     struct ConstantsInitialWindowMetricsInsets {
@@ -153,16 +151,6 @@ namespace JS {
 - (facebook::react::ModuleConstants<JS::NativeSafeAreaContext::Constants::Builder>)getConstants;
 
 @end
-
-@interface NativeSafeAreaContextSpecBase : NSObject {
-@protected
-facebook::react::EventEmitterCallback _eventEmitterCallback;
-}
-- (void)setEventEmitterCallback:(EventEmitterCallbackWrapper *)eventEmitterCallbackWrapper;
-
-
-@end
-
 namespace facebook::react {
   /**
    * ObjC++ class for module 'NativeSafeAreaContext'
@@ -222,5 +210,4 @@ inline JS::NativeSafeAreaContext::Constants::Builder::Builder(const Input i) : _
 inline JS::NativeSafeAreaContext::Constants::Builder::Builder(Constants i) : _factory(^{
   return i.unsafeRawValue();
 }) {}
-NS_ASSUME_NONNULL_END
 #endif // safeareacontext_H

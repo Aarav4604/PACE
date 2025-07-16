@@ -7,6 +7,9 @@ import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { Text } from 'react-native';
 import { setJSExceptionHandler } from 'react-native-exception-handler';
+import { DevSettings } from 'react-native';
+import { AuthProvider, AuthContext } from './contexts/AuthContext';
+import { useContext } from 'react';
 
 // Import screens
 import OnboardingScreen from '@/screens/OnboardingScreen';
@@ -22,7 +25,6 @@ import AccountScreen from '@/screens/AccountScreen';
 
 // Import components
 import { ThemeProvider } from './contexts/ThemeContext';
-import { AuthProvider } from './contexts/AuthContext';
 import { AppErrorBoundary } from '@/components/AppErrorBoundary';
 
 // Import types
@@ -31,7 +33,8 @@ import { RootStackParamList } from './types/navigation';
 // FloatingTabNavigator stub (to be implemented)
 import FloatingTabNavigator from '@/components/FloatingTabNavigator';
 
-const Stack = createNativeStackNavigator<RootStackParamList>();
+const AuthStack = createNativeStackNavigator();
+const AppStack = createNativeStackNavigator();
 
 // Create Query Client
 const queryClient = new QueryClient({
@@ -43,6 +46,24 @@ const queryClient = new QueryClient({
   },
 });
 
+function AuthGate() {
+  const { isAuthenticated } = useContext(AuthContext);
+  if (!isAuthenticated) {
+    return (
+      <AuthStack.Navigator screenOptions={{ headerShown: false }} initialRouteName="Onboarding">
+        <AuthStack.Screen name="Onboarding" component={OnboardingScreen} />
+        <AuthStack.Screen name="SignUp" component={SignUpScreen} />
+        <AuthStack.Screen name="Login" component={LoginScreen} />
+      </AuthStack.Navigator>
+    );
+  }
+  return (
+    <AppStack.Navigator screenOptions={{ headerShown: false }}>
+      <AppStack.Screen name="Tabs" component={FloatingTabNavigator} />
+    </AppStack.Navigator>
+  );
+}
+
 // Main App Component
 function App() {
   LogBox.ignoreAllLogs(false); // show warnings
@@ -53,6 +74,11 @@ function App() {
 
   console.log('App mounted ✅');
 
+  // Disable RN Inspector overlay in dev menu
+  if (DevSettings && DevSettings.addMenuItem) {
+    DevSettings.addMenuItem('Disable Inspector', () => {});
+  }
+
   return (
     <AppErrorBoundary>
       <GestureHandlerRootView style={{ flex: 1 }}>
@@ -61,10 +87,7 @@ function App() {
             <ThemeProvider>
               <AuthProvider>
                 <NavigationContainer>
-                  <Stack.Navigator screenOptions={{ headerShown: false }} initialRouteName="Portfolios">
-                    <Stack.Screen name="Tabs" component={FloatingTabNavigator} />
-                    <Stack.Screen name="PortfolioHoldings" component={PortfolioHoldingsScreen} />
-                  </Stack.Navigator>
+                  <AuthGate />
                 </NavigationContainer>
               </AuthProvider>
             </ThemeProvider>

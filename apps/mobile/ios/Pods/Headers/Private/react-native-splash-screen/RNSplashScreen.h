@@ -1,1 +1,1 @@
-../../../../../node_modules/react-native-splash-screen/ios/RNSplashScreen.h
+../../../../../../../node_modules/react-native-splash-screen/ios/RNSplashScreen.h

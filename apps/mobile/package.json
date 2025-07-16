@@ -11,7 +11,9 @@
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
     "lint:fix": "eslint . --ext .js,.jsx,.ts,.tsx --fix",
     "build:android": "cd android && ./gradlew assembleRelease",
-    "build:ios": "cd ios && xcodebuild -workspace PACE.xcworkspace -scheme PACE -configuration Release -destination generic/platform=iOS -archivePath PACE.xcarchive archive"
+    "build:ios": "cd ios && xcodebuild -workspace PACE.xcworkspace -scheme PACE -configuration Release -destination generic/platform=iOS -archivePath PACE.xcarchive archive",
+    "postinstall": "cd ios && pod install",
+    "dev:ios": "yarn install && cd ios && pod install && cd .. && npx react-native run-ios"
   },
   "dependencies": {
     "@react-native-async-storage/async-storage": "^1.19.0",

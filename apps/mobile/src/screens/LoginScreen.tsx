@@ -1,62 +1,82 @@
-import React, { useState } from 'react';
-import { View, Text, StyleSheet, TextInput, TouchableOpacity, KeyboardAvoidingView, Platform } from 'react-native';
+import React from 'react';
+import { View, Text, StyleSheet, TouchableOpacity, KeyboardAvoidingView, Platform, ScrollView } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import { useForm, Controller } from 'react-hook-form';
+import { TextInput } from 'react-native-paper';
+import LinearGradient from 'react-native-linear-gradient';
 import { darkTheme as theme } from '../theme/theme';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { RootStackParamList } from '../types/navigation';
+import { AuthContext } from '../contexts/AuthContext';
 
 export default function LoginScreen() {
   const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
+  const { login } = React.useContext(AuthContext);
+  const { control, handleSubmit, formState: { errors } } = useForm();
 
-  const handleLogin = () => {
-    if (!email || !password) {
-      setError('Please enter email and password.');
-      return;
-    }
-    // Placeholder: always succeed
-    navigation.navigate('LinkBroker');
+  const onSubmit = (data: any) => {
+    login(data.email, data.password);
+    navigation.replace('Tabs');
   };
 
   return (
-    <KeyboardAvoidingView style={styles.root} behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
-      <View style={styles.card}>
-        <Text style={styles.title}>Welcome Back</Text>
-        <Text style={styles.subtitle}>Sign in to your account</Text>
-        <TextInput
-          style={styles.input}
-          placeholder="Email"
-          placeholderTextColor={theme.colors.textSecondary}
-          value={email}
-          onChangeText={setEmail}
-          keyboardType="email-address"
-          autoCapitalize="none"
-        />
-        <TextInput
-          style={styles.input}
-          placeholder="Password"
-          placeholderTextColor={theme.colors.textSecondary}
-          value={password}
-          onChangeText={setPassword}
-          secureTextEntry
-        />
-        {error ? <Text style={styles.error}>{error}</Text> : null}
-        <TouchableOpacity style={styles.loginBtn} onPress={handleLogin}>
-          <Text style={styles.loginText}>Login</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.signupBtn} onPress={() => navigation.navigate('SignUp')}>
-          <Text style={styles.signupText}>Sign Up</Text>
-        </TouchableOpacity>
-      </View>
+    <KeyboardAvoidingView style={{ flex: 1 }} behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
+      <ScrollView contentContainerStyle={styles.root} keyboardShouldPersistTaps="handled">
+        <View style={styles.card}>
+          <Text style={styles.title}>Welcome Back</Text>
+          <Text style={styles.subtitle}>Sign in to your account</Text>
+          <Controller
+            control={control}
+            name="email"
+            rules={{ required: 'Email is required' }}
+            render={({ field: { onChange, value } }) => (
+              <TextInput
+                label="Email"
+                value={value}
+                onChangeText={onChange}
+                style={styles.input}
+                mode="outlined"
+                theme={{ colors: { text: theme.colors.textPrimary, placeholder: theme.colors.textSecondary, background: theme.colors.background, primary: theme.colors.accent } }}
+                keyboardType="email-address"
+                autoCapitalize="none"
+              />
+            )}
+          />
+          {typeof errors.email?.message === 'string' ? <Text style={styles.error}>{errors.email.message}</Text> : null}
+          <Controller
+            control={control}
+            name="password"
+            rules={{ required: 'Password is required' }}
+            render={({ field: { onChange, value } }) => (
+              <TextInput
+                label="Password"
+                value={value}
+                onChangeText={onChange}
+                style={styles.input}
+                mode="outlined"
+                theme={{ colors: { text: theme.colors.textPrimary, placeholder: theme.colors.textSecondary, background: theme.colors.background, primary: theme.colors.accent } }}
+                secureTextEntry
+              />
+            )}
+          />
+          {typeof errors.password?.message === 'string' ? <Text style={styles.error}>{errors.password.message}</Text> : null}
+          <TouchableOpacity onPress={handleSubmit(onSubmit)} activeOpacity={0.85} style={{ width: '100%' }}>
+            <LinearGradient colors={["#3B82F6", "#2563EB"]} style={styles.loginBtn}>
+              <Text style={styles.loginText}>Login</Text>
+            </LinearGradient>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.signupBtn} onPress={() => navigation.navigate('SignUp')}>
+            <Text style={styles.signupText}>Sign Up</Text>
+          </TouchableOpacity>
+        </View>
+      </ScrollView>
     </KeyboardAvoidingView>
   );
 }
 
 const styles = StyleSheet.create({
   root: {
-    flex: 1,
+    flexGrow: 1,
     backgroundColor: theme.colors.background,
     justifyContent: 'center',
     alignItems: 'center',
@@ -85,27 +105,22 @@ const styles = StyleSheet.create({
   },
   input: {
     width: '100%',
-    backgroundColor: theme.colors.background,
-    color: theme.colors.textPrimary,
-    borderRadius: 12,
-    padding: 14,
-    fontSize: 16,
     marginBottom: 16,
-    borderWidth: 1,
-    borderColor: theme.colors.muted,
+    backgroundColor: theme.colors.background,
   },
   error: {
     color: theme.colors.negative,
     marginBottom: 12,
     fontSize: 14,
+    alignSelf: 'flex-start',
   },
   loginBtn: {
-    backgroundColor: theme.colors.accent,
     borderRadius: 16,
     paddingVertical: 14,
-    paddingHorizontal: 48,
+    alignItems: 'center',
     marginTop: 8,
     marginBottom: 8,
+    elevation: 8,
   },
   loginText: {
     color: '#fff',

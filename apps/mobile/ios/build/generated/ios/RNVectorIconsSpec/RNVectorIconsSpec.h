@@ -31,8 +31,6 @@
 #import <vector>
 
 
-NS_ASSUME_NONNULL_BEGIN
-
 @protocol NativeRNVectorIconsSpec <RCTBridgeModule, RCTTurboModule>
 
 - (void)getImageForFont:(NSString *)fontName
@@ -51,16 +49,6 @@ NS_ASSUME_NONNULL_BEGIN
                       reject:(RCTPromiseRejectBlock)reject;
 
 @end
-
-@interface NativeRNVectorIconsSpecBase : NSObject {
-@protected
-facebook::react::EventEmitterCallback _eventEmitterCallback;
-}
-- (void)setEventEmitterCallback:(EventEmitterCallbackWrapper *)eventEmitterCallbackWrapper;
-
-
-@end
-
 namespace facebook::react {
   /**
    * ObjC++ class for module 'NativeRNVectorIcons'
@@ -71,5 +59,4 @@ namespace facebook::react {
   };
 } // namespace facebook::react
 
-NS_ASSUME_NONNULL_END
 #endif // RNVectorIconsSpec_H

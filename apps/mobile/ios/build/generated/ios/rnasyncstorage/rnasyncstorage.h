@@ -31,8 +31,6 @@
 #import <vector>
 
 
-NS_ASSUME_NONNULL_BEGIN
-
 @protocol NativeAsyncStorageModuleSpec <RCTBridgeModule, RCTTurboModule>
 
 - (void)multiGet:(NSArray *)keys
@@ -47,16 +45,6 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)clear:(RCTResponseSenderBlock)callback;
 
 @end
-
-@interface NativeAsyncStorageModuleSpecBase : NSObject {
-@protected
-facebook::react::EventEmitterCallback _eventEmitterCallback;
-}
-- (void)setEventEmitterCallback:(EventEmitterCallbackWrapper *)eventEmitterCallbackWrapper;
-
-
-@end
-
 namespace facebook::react {
   /**
    * ObjC++ class for module 'NativeAsyncStorageModule'
@@ -67,5 +55,4 @@ namespace facebook::react {
   };
 } // namespace facebook::react
 
-NS_ASSUME_NONNULL_END
 #endif // rnasyncstorage_H

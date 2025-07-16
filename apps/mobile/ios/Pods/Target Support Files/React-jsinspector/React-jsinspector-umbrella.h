@@ -10,12 +10,13 @@
 #endif
 #endif
 
-#import "jsinspector-modern/Base64.h"
+#import "jsinspector-modern/CdpJson.h"
 #import "jsinspector-modern/ConsoleMessage.h"
 #import "jsinspector-modern/ExecutionContext.h"
 #import "jsinspector-modern/ExecutionContextManager.h"
 #import "jsinspector-modern/FallbackRuntimeAgentDelegate.h"
 #import "jsinspector-modern/FallbackRuntimeTargetDelegate.h"
+#import "jsinspector-modern/ForwardingConsoleMethods.def"
 #import "jsinspector-modern/HostAgent.h"
 #import "jsinspector-modern/HostCommand.h"
 #import "jsinspector-modern/HostTarget.h"
@@ -26,7 +27,6 @@
 #import "jsinspector-modern/InspectorUtilities.h"
 #import "jsinspector-modern/InstanceAgent.h"
 #import "jsinspector-modern/InstanceTarget.h"
-#import "jsinspector-modern/NetworkIOAgent.h"
 #import "jsinspector-modern/ReactCdp.h"
 #import "jsinspector-modern/RuntimeAgent.h"
 #import "jsinspector-modern/RuntimeAgentDelegate.h"
@@ -34,9 +34,7 @@
 #import "jsinspector-modern/ScopedExecutor.h"
 #import "jsinspector-modern/SessionState.h"
 #import "jsinspector-modern/StackTrace.h"
-#import "jsinspector-modern/TracingAgent.h"
 #import "jsinspector-modern/UniqueMonostate.h"
-#import "jsinspector-modern/Utf8.h"
 #import "jsinspector-modern/WeakList.h"
 #import "jsinspector-modern/WebSocketInterfaces.h"
 

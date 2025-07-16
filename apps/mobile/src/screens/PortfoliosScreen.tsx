@@ -1,9 +1,9 @@
 import React from 'react';
-import { View, Text } from 'react-native';
+import { View, FlatList } from 'react-native';
 
 const PortfoliosScreen = () => (
-  <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-    <Text>Portfolios Screen (stub)</Text>
+  <View style={{ flex: 1 }}>
+    <FlatList data={[]} renderItem={null} keyExtractor={() => ''} />
   </View>
 );
 

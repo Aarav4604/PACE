@@ -9,7 +9,7 @@
     "author": "author@domain.cn"
   },
   "platforms": {
-    "ios": "11.0",
+    "ios": "9.0",
     "tvos": "11.0",
     "visionos": "1.0"
   },
@@ -17,12 +17,20 @@
     "git": "https://github.com/software-mansion/react-native-screens.git",
     "tag": "3.37.0"
   },
-  "source_files": "ios/**/*.{h,m,mm,cpp}",
+  "source_files": [
+    "ios/**/*.{h,m,mm}",
+    "cpp/RNScreensTurboModule.cpp",
+    "cpp/RNScreensTurboModule.h"
+  ],
   "project_header_files": "cpp/**/*.h",
   "requires_arc": true,
-  "compiler_flags": "-DRCT_NEW_ARCH_ENABLED=1",
+  "compiler_flags": "-DFOLLY_NO_CONFIG -DFOLLY_MOBILE=1 -DFOLLY_USE_LIBCPP=1 -DFOLLY_CFG_NO_COROUTINES=1 -DFOLLY_HAVE_CLOCK_GETTIME=1 -Wno-comma -Wno-shorten-64-to-32",
   "dependencies": {
     "React-Core": [],
+    "RCT-Folly": [
+      "2024.01.01.00"
+    ],
+    "glog": [],
     "React-RCTFabric": [],
     "ReactCodegen": [],
     "RCTRequired": [],
@@ -38,37 +46,13 @@
     "React-debug": [],
     "React-ImageManager": [],
     "React-rendererdebug": [],
-    "React-jsi": [],
-    "React-renderercss": [],
-    "hermes-engine": [],
-    "React-hermes": [],
-    "glog": [],
-    "boost": [],
     "DoubleConversion": [],
-    "fast_float": [],
-    "fmt": [],
-    "RCT-Folly": [],
-    "SocketRocket": [],
-    "RCT-Folly/Fabric": [],
+    "hermes-engine": [],
     "React-RCTImage": []
   },
   "pod_target_xcconfig": {
-    "HEADER_SEARCH_PATHS": "\"$(PODS_ROOT)/Headers/Private/Yoga\"",
+    "HEADER_SEARCH_PATHS": "\"$(PODS_ROOT)/boost\" \"$(PODS_ROOT)/Headers/Private/Yoga\"",
     "CLANG_CXX_LANGUAGE_STANDARD": "c++20",
-    "OTHER_CPLUSPLUSFLAGS": "$(inherited) -DRCT_NEW_ARCH_ENABLED=1 ",
-    "OTHER_SWIFT_FLAGS": "$(inherited) -DRCT_NEW_ARCH_ENABLED"
-  },
-  "subspecs": [
-    {
-      "name": "common",
-      "source_files": [
-        "common/cpp/**/*.{cpp,h}",
-        "cpp/**/*.{cpp,h}"
-      ],
-      "header_dir": "rnscreens",
-      "pod_target_xcconfig": {
-        "HEADER_SEARCH_PATHS": "\"$(PODS_TARGET_SRCROOT)/common/cpp\""
-      }
-    }
-  ]
+    "OTHER_CPLUSPLUSFLAGS": "$(inherited) -DFOLLY_NO_CONFIG -DFOLLY_MOBILE=1 -DFOLLY_USE_LIBCPP=1 -DFOLLY_CFG_NO_COROUTINES=1 -DFOLLY_HAVE_CLOCK_GETTIME=1 -Wno-comma -Wno-shorten-64-to-32"
+  }
 }

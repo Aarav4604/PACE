@@ -55,7 +55,7 @@ class HeapProfilerDomainAgent : public DomainAgent {
   void stopSampling(const m::heapProfiler::StopSamplingRequest &req);
 
  private:
-  void sendSnapshot(int reqId, bool reportProgress, bool captureNumericValue);
+  void sendSnapshot(int reqId, bool reportProgress);
 
   HermesRuntime &runtime_;
 

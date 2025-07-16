@@ -1,1 +1,1 @@
-../../../../../node_modules/react-native-device-info/ios/RNDeviceInfo/EnvironmentUtil.h
+../../../../../../../node_modules/react-native-device-info/ios/RNDeviceInfo/EnvironmentUtil.h

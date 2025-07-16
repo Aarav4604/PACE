@@ -10,10 +10,9 @@
 #endif
 #endif
 
-#import "RCTModuleProviders.h"
+#import "FBReactNativeSpec/FBReactNativeSpec.h"
+#import "FBReactNativeSpecJSI.h"
 #import "RCTModulesConformingToProtocolsProvider.h"
-#import "RCTThirdPartyComponentsProvider.h"
-#import "RCTUnstableModulesRequiringMainQueueSetupProvider.h"
 #import "react/renderer/components/RNCWebViewSpec/ComponentDescriptors.h"
 #import "react/renderer/components/RNCWebViewSpec/EventEmitters.h"
 #import "react/renderer/components/RNCWebViewSpec/Props.h"

@@ -31,8 +31,6 @@
 #import <vector>
 
 
-NS_ASSUME_NONNULL_BEGIN
-
 @protocol NativeRNCWebViewModuleSpec <RCTBridgeModule, RCTTurboModule>
 
 - (void)isFileUploadSupported:(RCTPromiseResolveBlock)resolve
@@ -41,16 +39,6 @@ NS_ASSUME_NONNULL_BEGIN
                            lockIdentifier:(double)lockIdentifier;
 
 @end
-
-@interface NativeRNCWebViewModuleSpecBase : NSObject {
-@protected
-facebook::react::EventEmitterCallback _eventEmitterCallback;
-}
-- (void)setEventEmitterCallback:(EventEmitterCallbackWrapper *)eventEmitterCallbackWrapper;
-
-
-@end
-
 namespace facebook::react {
   /**
    * ObjC++ class for module 'NativeRNCWebViewModule'
@@ -61,5 +49,4 @@ namespace facebook::react {
   };
 } // namespace facebook::react
 
-NS_ASSUME_NONNULL_END
 #endif // RNCWebViewSpec_H

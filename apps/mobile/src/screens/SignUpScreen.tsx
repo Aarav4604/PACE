@@ -1,75 +1,99 @@
-import React, { useState } from 'react';
-import { View, Text, StyleSheet, TextInput, TouchableOpacity, KeyboardAvoidingView, Platform } from 'react-native';
+import React from 'react';
+import { View, Text, StyleSheet, TouchableOpacity, KeyboardAvoidingView, Platform, ScrollView } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import { useForm, Controller } from 'react-hook-form';
+import { TextInput } from 'react-native-paper';
+import LinearGradient from 'react-native-linear-gradient';
 import { darkTheme as theme } from '../theme/theme';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { RootStackParamList } from '../types/navigation';
+import { AuthContext } from '../contexts/AuthContext';
 
 export default function SignUpScreen() {
   const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [confirm, setConfirm] = useState('');
-  const [error, setError] = useState('');
+  const { login } = React.useContext(AuthContext);
+  const { control, handleSubmit, formState: { errors } } = useForm();
 
-  const handleSignUp = () => {
-    if (!email || !password || !confirm) {
-      setError('Please fill all fields.');
-      return;
-    }
-    if (password !== confirm) {
-      setError('Passwords do not match.');
-      return;
-    }
-    // Placeholder: always succeed
-    navigation.navigate('LinkBroker');
+  const onSubmit = (data: any) => {
+    login(data.email, data.password);
+    navigation.replace('Tabs');
   };
 
   return (
-    <KeyboardAvoidingView style={styles.root} behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
-      <View style={styles.card}>
-        <Text style={styles.title}>Create Account</Text>
-        <Text style={styles.subtitle}>Sign up to get started</Text>
-        <TextInput
-          style={styles.input}
-          placeholder="Email"
-          placeholderTextColor={theme.colors.textSecondary}
-          value={email}
-          onChangeText={setEmail}
-          keyboardType="email-address"
-          autoCapitalize="none"
-        />
-        <TextInput
-          style={styles.input}
-          placeholder="Password"
-          placeholderTextColor={theme.colors.textSecondary}
-          value={password}
-          onChangeText={setPassword}
-          secureTextEntry
-        />
-        <TextInput
-          style={styles.input}
-          placeholder="Confirm Password"
-          placeholderTextColor={theme.colors.textSecondary}
-          value={confirm}
-          onChangeText={setConfirm}
-          secureTextEntry
-        />
-        {error ? <Text style={styles.error}>{error}</Text> : null}
-        <TouchableOpacity style={styles.signupBtn} onPress={handleSignUp}>
-          <Text style={styles.signupText}>Sign Up</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.loginBtn} onPress={() => navigation.navigate('Login')}>
-          <Text style={styles.loginText}>Back to Login</Text>
-        </TouchableOpacity>
-      </View>
+    <KeyboardAvoidingView style={{ flex: 1 }} behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
+      <ScrollView contentContainerStyle={styles.root} keyboardShouldPersistTaps="handled">
+        <View style={styles.card}>
+          <Text style={styles.title}>Create Account</Text>
+          <Text style={styles.subtitle}>Sign up to get started</Text>
+          <Controller
+            control={control}
+            name="name"
+            rules={{ required: 'Name is required' }}
+            render={({ field: { onChange, value } }) => (
+              <TextInput
+                label="Name"
+                value={value}
+                onChangeText={onChange}
+                style={styles.input}
+                mode="outlined"
+                theme={{ colors: { text: theme.colors.textPrimary, placeholder: theme.colors.textSecondary, background: theme.colors.background, primary: theme.colors.accent } }}
+                autoCapitalize="words"
+              />
+            )}
+          />
+          {typeof errors.name?.message === 'string' ? <Text style={styles.error}>{errors.name.message}</Text> : null}
+          <Controller
+            control={control}
+            name="email"
+            rules={{ required: 'Email is required' }}
+            render={({ field: { onChange, value } }) => (
+              <TextInput
+                label="Email"
+                value={value}
+                onChangeText={onChange}
+                style={styles.input}
+                mode="outlined"
+                theme={{ colors: { text: theme.colors.textPrimary, placeholder: theme.colors.textSecondary, background: theme.colors.background, primary: theme.colors.accent } }}
+                keyboardType="email-address"
+                autoCapitalize="none"
+              />
+            )}
+          />
+          {typeof errors.email?.message === 'string' ? <Text style={styles.error}>{errors.email.message}</Text> : null}
+          <Controller
+            control={control}
+            name="password"
+            rules={{ required: 'Password is required' }}
+            render={({ field: { onChange, value } }) => (
+              <TextInput
+                label="Password"
+                value={value}
+                onChangeText={onChange}
+                style={styles.input}
+                mode="outlined"
+                theme={{ colors: { text: theme.colors.textPrimary, placeholder: theme.colors.textSecondary, background: theme.colors.background, primary: theme.colors.accent } }}
+                secureTextEntry
+              />
+            )}
+          />
+          {typeof errors.password?.message === 'string' ? <Text style={styles.error}>{errors.password.message}</Text> : null}
+          <TouchableOpacity onPress={handleSubmit(onSubmit)} activeOpacity={0.85} style={{ width: '100%' }}>
+            <LinearGradient colors={["#3B82F6", "#2563EB"]} style={styles.signupBtn}>
+              <Text style={styles.signupText}>Sign Up</Text>
+            </LinearGradient>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.loginBtn} onPress={() => navigation.navigate('Login')}>
+            <Text style={styles.loginText}>Already have an account? Log in</Text>
+          </TouchableOpacity>
+        </View>
+      </ScrollView>
     </KeyboardAvoidingView>
   );
 }
 
 const styles = StyleSheet.create({
   root: {
-    flex: 1,
+    flexGrow: 1,
     backgroundColor: theme.colors.background,
     justifyContent: 'center',
     alignItems: 'center',
@@ -98,27 +122,22 @@ const styles = StyleSheet.create({
   },
   input: {
     width: '100%',
-    backgroundColor: theme.colors.background,
-    color: theme.colors.textPrimary,
-    borderRadius: 12,
-    padding: 14,
-    fontSize: 16,
     marginBottom: 16,
-    borderWidth: 1,
-    borderColor: theme.colors.muted,
+    backgroundColor: theme.colors.background,
   },
   error: {
     color: theme.colors.negative,
     marginBottom: 12,
     fontSize: 14,
+    alignSelf: 'flex-start',
   },
   signupBtn: {
-    backgroundColor: theme.colors.accent,
     borderRadius: 16,
     paddingVertical: 14,
-    paddingHorizontal: 48,
+    alignItems: 'center',
     marginTop: 8,
     marginBottom: 8,
+    elevation: 8,
   },
   signupText: {
     color: '#fff',

@@ -31,8 +31,6 @@
 #import <vector>
 
 
-NS_ASSUME_NONNULL_BEGIN
-
 @protocol NativeRNGestureHandlerModuleSpec <RCTBridgeModule, RCTTurboModule>
 
 - (void)handleSetJSResponder:(double)tag
@@ -51,16 +49,6 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)flushOperations;
 
 @end
-
-@interface NativeRNGestureHandlerModuleSpecBase : NSObject {
-@protected
-facebook::react::EventEmitterCallback _eventEmitterCallback;
-}
-- (void)setEventEmitterCallback:(EventEmitterCallbackWrapper *)eventEmitterCallbackWrapper;
-
-
-@end
-
 namespace facebook::react {
   /**
    * ObjC++ class for module 'NativeRNGestureHandlerModule'
@@ -71,5 +59,4 @@ namespace facebook::react {
   };
 } // namespace facebook::react
 
-NS_ASSUME_NONNULL_END
 #endif // rngesturehandler_codegen_H
