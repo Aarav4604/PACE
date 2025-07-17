@@ -9,6 +9,7 @@ import {
 } from 'react-native';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import type { RootStackParamList } from '../types/navigation';
+import AuthLayout from '../components/AuthLayout';
 
 const { width, height } = Dimensions.get('window');
 const BORDER_RADIUS = 40;
@@ -19,55 +20,57 @@ interface SignInScreenProps {
 
 export default function SignInScreen({ navigation }: SignInScreenProps) {
   return (
-    <View style={styles.container}>
-      <ImageBackground
-        source={{
-          uri:
-            'https://storage.googleapis.com/a1aa/image/ff608d3d-18ce-4d54-3196-fb7b28a955ee.jpg',
-        }}
-        style={styles.background}
-        imageStyle={styles.imageStyle}
-      >
-        {/* Demo button */}
-        <View style={styles.topRight}>
-          <TouchableOpacity activeOpacity={0.7}>
-            <View style={styles.demoButton}>
-              <Text style={styles.demoText}>PACE</Text>
-              <Text style={styles.chevronText}>›</Text>
-            </View>
-          </TouchableOpacity>
-        </View>
-
-        {/* Headline & sub-copy */}
-        <View style={styles.content}>
-          <Text style={styles.title}>
-            Easy for{'\n'}
-            Beginners,{'\n'}
-            Powerful for All
-          </Text>
-
-          <View style={styles.subtitleContainer}>
-            <Text style={[styles.arrowText, { marginTop: 4 }]}>↗</Text>
-            <Text style={styles.subtitle}>
-              Effortless Investing for Everyone:{'\n'}
-              Discover How Simple Steps{'\n'}
-              Can Make Financial Growth Easy
-            </Text>
-          </View>
-        </View>
-
-        {/* Floating CTA pill */}
-        <TouchableOpacity
-          style={styles.revolutionizeButton}
-          activeOpacity={0.7}
-          onPress={() => navigation.navigate('Login')}
-          hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
+    <AuthLayout>
+      <View style={styles.container}>
+        <ImageBackground
+          source={{
+            uri:
+              'https://storage.googleapis.com/a1aa/image/ff608d3d-18ce-4d54-3196-fb7b28a955ee.jpg',
+          }}
+          style={styles.background}
+          imageStyle={styles.imageStyle}
         >
-          <Text style={styles.revolutionizeText}>Revolutionize Your Trading</Text>
-          <Text style={styles.arrowText}>→</Text>
-        </TouchableOpacity>
-      </ImageBackground>
-    </View>
+          {/* Demo button */}
+          <View style={styles.topRight}>
+            <TouchableOpacity activeOpacity={0.7}>
+              <View style={styles.demoButton}>
+                <Text style={styles.demoText}>PACE</Text>
+                <Text style={styles.chevronText}>›</Text>
+              </View>
+            </TouchableOpacity>
+          </View>
+
+          {/* Headline & sub-copy */}
+          <View style={styles.content}>
+            <Text style={styles.title}>
+              Easy for{'\n'}
+              Beginners,{'\n'}
+              Powerful for All
+            </Text>
+
+            <View style={styles.subtitleContainer}>
+              <Text style={[styles.arrowText, { marginTop: 4 }]}>↗</Text>
+              <Text style={styles.subtitle}>
+                Effortless Investing for Everyone:{'\n'}
+                Discover How Simple Steps{'\n'}
+                Can Make Financial Growth Easy
+              </Text>
+            </View>
+          </View>
+
+          {/* Floating CTA pill */}
+          <TouchableOpacity
+            style={styles.revolutionizeButton}
+            activeOpacity={0.7}
+            onPress={() => navigation.navigate('Login')}
+            hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
+          >
+            <Text style={styles.revolutionizeText}>Revolutionize Your Trading</Text>
+            <Text style={styles.arrowText}>→</Text>
+          </TouchableOpacity>
+        </ImageBackground>
+      </View>
+    </AuthLayout>
   );
 }
 

@@ -1,53 +1,123 @@
 import React from 'react';
-import { View, Text, StyleSheet, Image, ScrollView } from 'react-native';
-import { List } from 'react-native-paper';
-import { BlurView } from '@react-native-community/blur';
-import { AuthContext } from '../contexts/AuthContext';
+import {
+  View, 
+  Text, 
+  Image, 
+  StyleSheet, 
+  TouchableOpacity, 
+  ScrollView, 
+  SafeAreaView,
+} from 'react-native';
+import { default as Icon } from 'react-native-vector-icons/Feather';
 
 export default function AccountScreen() {
-  const { user, logout } = React.useContext(AuthContext);
-  if (!user) return null;
+  const user = {
+    name: 'Terry Melton',
+    email: 'melton89@gmail.com',
+    phone: '+1 201 555-0123',
+    address: '70 Rainey St, Austin TX 78701',
+    profileImage: 'https://placehold.co/96x96',
+  };
+
   return (
-    <ScrollView contentContainerStyle={{ padding: 24 }}>
-      <BlurView style={styles.card} blurType="dark" blurAmount={40} reducedTransparencyFallbackColor="rgba(0,0,0,0.55)">
-        <Image source={{ uri: user.avatar }} style={styles.avatar} />
-        <Text style={styles.name}>{user.name}</Text>
-        <Text style={styles.email}>{user.email}</Text>
-      </BlurView>
-      <List.Section>
-        <List.Item title="Profile" left={props => <List.Icon {...props} icon="account" />} />
-        <List.Item title="Security" left={props => <List.Icon {...props} icon="shield-lock" />} />
-        <List.Item title="Notifications" left={props => <List.Icon {...props} icon="bell" />} />
-        <List.Item title="Settings" left={props => <List.Icon {...props} icon="cog" />} />
-        <List.Item title="Logout" onPress={logout} left={props => <List.Icon {...props} icon="logout" />} />
-      </List.Section>
-    </ScrollView>
+    <SafeAreaView style={styles.container}>
+      <ScrollView contentContainerStyle={styles.scroll} showsVerticalScrollIndicator={false}>
+        <Text style={styles.h1}>Account</Text>
+
+        <View style={styles.avatarWrap}>
+          <Image source={{ uri: user.profileImage }} style={styles.avatar} />
+          <TouchableOpacity style={styles.editPen}>
+            {React.createElement(Icon as any, { name: "edit-2", size: 16, color: "#000" })}
+          </TouchableOpacity>
+        </View>
+
+        <View style={styles.card}>
+          <View style={styles.row}>
+            {React.createElement(Icon as any, { name: "user", size: 18, color: "#8b8b8b" })}
+            <Text style={styles.label}>Name</Text>
+            <Text style={styles.value}>{user.name}</Text>
+          </View>
+          <View style={styles.row}>
+            {React.createElement(Icon as any, { name: "mail", size: 18, color: "#8b8b8b" })}
+            <Text style={styles.label}>Email</Text>
+            <Text style={styles.value}>{user.email}</Text>
+          </View>
+          <View style={styles.row}>
+            {React.createElement(Icon as any, { name: "phone", size: 18, color: "#8b8b8b" })}
+            <Text style={styles.label}>Phone</Text>
+            <Text style={styles.value}>{user.phone}</Text>
+          </View>
+          <View style={[styles.row, { alignItems: 'flex-start' }]}>
+            {React.createElement(Icon as any, { name: "home", size: 18, color: "#8b8b8b" })}
+            <View style={{ flex: 1 }}>
+              <Text style={styles.label}>Address</Text>
+              <Text style={styles.value}>{user.address}</Text>
+            </View>
+          </View>
+        </View>
+      </ScrollView>
+    </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
-  card: {
+  container: {
+    flex: 1,
+    backgroundColor: '#0a0a0a',
+  },
+  scroll: {
     alignItems: 'center',
-    padding: 24,
-    borderRadius: 24,
-    marginBottom: 32,
-    overflow: 'hidden',
+    paddingTop: 32,
+    paddingBottom: 120,
   },
-  avatar: {
-    width: 80,
-    height: 80,
-    borderRadius: 40,
-    marginBottom: 16,
-  },
-  name: {
+  h1: {
     color: '#fff',
     fontSize: 22,
-    fontWeight: 'bold',
-    marginBottom: 4,
+    fontWeight: '700',
+    marginBottom: 32,
   },
-  email: {
-    color: '#B0B0B0',
+  avatarWrap: {
+    marginBottom: 32,
+    position: 'relative',
+  },
+  avatar: {
+    width: 96,
+    height: 96,
+    borderRadius: 48,
+    borderWidth: 3,
+    borderColor: '#1f1f1f',
+  },
+  editPen: {
+    position: 'absolute',
+    bottom: 0,
+    right: 0,
+    backgroundColor: '#fff',
+    borderRadius: 12,
+    width: 32,
+    height: 32,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  card: {
+    width: 340,
+    backgroundColor: '#141414',
+    borderRadius: 24,
+    padding: 24,
+  },
+  row: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: 20,
+  },
+  label: {
+    fontSize: 12,
+    color: '#8b8b8b',
+    marginRight: 8,
+    width: 60,
+  },
+  value: {
     fontSize: 16,
-    marginBottom: 8,
+    color: '#fff',
+    flexShrink: 1,
   },
 }); 
