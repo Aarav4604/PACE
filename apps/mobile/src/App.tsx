@@ -22,6 +22,7 @@ import PortfolioHoldingsScreen from '@/screens/PortfolioHoldingsScreen';
 import PortfoliosScreen from '@/screens/PortfoliosScreen';
 import BuildScreen from '@/screens/BuildScreen';
 import AccountScreen from '@/screens/AccountScreen';
+import SignInScreen from '@/screens/SignInScreen';
 
 // Import components
 import { ThemeProvider } from './contexts/ThemeContext';
@@ -50,8 +51,9 @@ function AuthGate() {
   const { isAuthenticated } = useContext(AuthContext);
   if (!isAuthenticated) {
     return (
-      <AuthStack.Navigator screenOptions={{ headerShown: false }} initialRouteName="Onboarding">
+      <AuthStack.Navigator screenOptions={{ headerShown: false }} initialRouteName="SignIn">
         <AuthStack.Screen name="Onboarding" component={OnboardingScreen} />
+        <AuthStack.Screen name="SignIn" component={SignInScreen} />
         <AuthStack.Screen name="SignUp" component={SignUpScreen} />
         <AuthStack.Screen name="Login" component={LoginScreen} />
       </AuthStack.Navigator>

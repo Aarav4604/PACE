@@ -1657,6 +1657,18 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@callstack/react-theme-provider@npm:^3.0.9":
+  version: 3.0.9
+  resolution: "@callstack/react-theme-provider@npm:3.0.9"
+  dependencies:
+    deepmerge: ^3.2.0
+    hoist-non-react-statics: ^3.3.0
+  peerDependencies:
+    react: ">=16.3.0"
+  checksum: f888ef0b8f993d393a9d49864f75b04b5cf7259e72f290ec570fc5e314315f75c979b03b391243a72578ab55db4ffcdd4dc9dc1a2f8ec2b516cabb958971a85e
+  languageName: node
+  linkType: hard
+
 "@egjs/hammerjs@npm:^2.0.17":
   version: 2.0.17
   resolution: "@egjs/hammerjs@npm:2.0.17"
@@ -2185,7 +2197,7 @@ __metadata:
     react-native-screens: ^3.20.0
     react-native-splash-screen: ^3.3.0
     react-native-svg: ^13.14.0
-    react-native-vector-icons: ^10.0.0
+    react-native-vector-icons: ^10.2.0
     react-native-webview: ^13.2.0
     react-test-renderer: 18.2.0
     socket.io-client: ^4.7.0
@@ -4666,7 +4678,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"color-convert@npm:^1.9.0":
+"color-convert@npm:^1.9.0, color-convert@npm:^1.9.3":
   version: 1.9.3
   resolution: "color-convert@npm:1.9.3"
   dependencies:
@@ -4698,13 +4710,23 @@ __metadata:
   languageName: node
   linkType: hard
 
-"color-string@npm:^1.9.0":
+"color-string@npm:^1.6.0, color-string@npm:^1.9.0":
   version: 1.9.1
   resolution: "color-string@npm:1.9.1"
   dependencies:
     color-name: ^1.0.0
     simple-swizzle: ^0.2.2
   checksum: c13fe7cff7885f603f49105827d621ce87f4571d78ba28ef4a3f1a104304748f620615e6bf065ecd2145d0d9dad83a3553f52bb25ede7239d18e9f81622f1cc5
+  languageName: node
+  linkType: hard
+
+"color@npm:^3.1.2":
+  version: 3.2.1
+  resolution: "color@npm:3.2.1"
+  dependencies:
+    color-convert: ^1.9.3
+    color-string: ^1.6.0
+  checksum: f81220e8b774d35865c2561be921f5652117638dcda7ca4029262046e37fc2444ac7bbfdd110cf1fd9c074a4ee5eda8f85944ffbdda26186b602dd9bb05f6400
   languageName: node
   linkType: hard
 
@@ -5137,6 +5159,13 @@ __metadata:
   version: 0.1.4
   resolution: "deep-is@npm:0.1.4"
   checksum: edb65dd0d7d1b9c40b2f50219aef30e116cedd6fc79290e740972c132c09106d2e80aa0bc8826673dd5a00222d4179c84b36a790eef63a4c4bca75a37ef90804
+  languageName: node
+  linkType: hard
+
+"deepmerge@npm:^3.2.0":
+  version: 3.3.0
+  resolution: "deepmerge@npm:3.3.0"
+  checksum: 4322195389e0170a0443c07b36add19b90249802c4b47b96265fdc5f5d8beddf491d5e50cbc5bfd65f85ccf76598173083863c202f5463b3b667aca8be75d5ac
   languageName: node
   linkType: hard
 
@@ -8042,6 +8071,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"lucide-react-native@npm:^0.525.0":
+  version: 0.525.0
+  resolution: "lucide-react-native@npm:0.525.0"
+  peerDependencies:
+    react: ^16.5.1 || ^17.0.0 || ^18.0.0 || ^19.0.0
+    react-native: "*"
+    react-native-svg: ^12.0.0 || ^13.0.0 || ^14.0.0 || ^15.0.0
+  checksum: b9be1685faf224651d0db0f65d66890e5632634145e67368f079d4dcc862bc7e30457fa9878016dc917c869a457307cf8609c1c5787fe4f95149bf23cf718068
+  languageName: node
+  linkType: hard
+
 "make-dir@npm:^2.0.0, make-dir@npm:^2.1.0":
   version: 2.1.0
   resolution: "make-dir@npm:2.1.0"
@@ -9392,20 +9432,24 @@ __metadata:
     babel-preset-expo: ^13.2.3
     eslint: ^8.19.0
     jest: ^29.2.1
+    lucide-react-native: ^0.525.0
     metro-react-native-babel-preset: 0.76.5
     prettier: ^2.4.1
     react: 18.2.0
+    react-hook-form: ^7.60.0
     react-native: 0.75.4
+    react-native-biometrics: ^3.0.1
     react-native-device-info: ^10.8.0
     react-native-gesture-handler: ^2.27.1
     react-native-haptic-feedback: ^2.3.3
     react-native-linear-gradient: ^2.8.0
+    react-native-paper: ^5.14.5
     react-native-reanimated: ^3.18.0
     react-native-safe-area-context: ^4.5.0
     react-native-screens: ^3.20.0
     react-native-splash-screen: ^3.3.0
     react-native-svg: ^13.14.0
-    react-native-vector-icons: ^10.0.0
+    react-native-vector-icons: ^10.2.0
     react-native-webview: ^13.2.0
     react-test-renderer: 18.2.0
     socket.io-client: ^4.7.0
@@ -9761,6 +9805,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"react-hook-form@npm:^7.60.0":
+  version: 7.60.0
+  resolution: "react-hook-form@npm:7.60.0"
+  peerDependencies:
+    react: ^16.8.0 || ^17 || ^18 || ^19
+  checksum: 8700c2932604fe2b3fbdd47a459bec58fb5a2003a336b418b98d8771d1a6ec472531c6758188e23329f86413f736cc5a1c1a84a59341f5b3b9dd4f9fd704fb18
+  languageName: node
+  linkType: hard
+
 "react-is@npm:^16.12.0 || ^17.0.0 || ^18.0.0, react-is@npm:^18.0.0, react-is@npm:^18.2.0":
   version: 18.3.1
   resolution: "react-is@npm:18.3.1"
@@ -9779,6 +9832,15 @@ __metadata:
   version: 17.0.2
   resolution: "react-is@npm:17.0.2"
   checksum: 9d6d111d8990dc98bc5402c1266a808b0459b5d54830bbea24c12d908b536df7883f268a7868cfaedde3dd9d4e0d574db456f84d2e6df9c4526f99bb4b5344d8
+  languageName: node
+  linkType: hard
+
+"react-native-biometrics@npm:^3.0.1":
+  version: 3.0.1
+  resolution: "react-native-biometrics@npm:3.0.1"
+  peerDependencies:
+    react-native: ">=0.60.0"
+  checksum: 3864fea4bbf3dee1d360daf048e4f9980083c4e919e95082a5e4646e3b22475bb2b592cae18cccd7fb55b50498dca29e5346cf98d958646cbfc26fed5654bc53
   languageName: node
   linkType: hard
 
@@ -9853,6 +9915,21 @@ __metadata:
     "@react-native-community/datetimepicker": ">=6.7.0"
     react-native: ">=0.65.0"
   checksum: 30d28a8e599c7a36df4c3e93928aa246087edb95a82a98cb1162b045d18db47447c4e28a89190c83a8258f080066531b2b67805a9aeb007b135d62abfccf8c4c
+  languageName: node
+  linkType: hard
+
+"react-native-paper@npm:^5.14.5":
+  version: 5.14.5
+  resolution: "react-native-paper@npm:5.14.5"
+  dependencies:
+    "@callstack/react-theme-provider": ^3.0.9
+    color: ^3.1.2
+    use-latest-callback: ^0.2.3
+  peerDependencies:
+    react: "*"
+    react-native: "*"
+    react-native-safe-area-context: "*"
+  checksum: f986937ebeb2cdea338d384dfc7814d2c0dbe3e8cd3645ce720832b78f588eccf3fc490bf1afb942a9d6046cd842984c011316c4d9c2fabf59a38ae1a47fccb3
   languageName: node
   linkType: hard
 
@@ -9936,7 +10013,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-native-vector-icons@npm:^10.0.0":
+"react-native-vector-icons@npm:^10.2.0":
   version: 10.2.0
   resolution: "react-native-vector-icons@npm:10.2.0"
   dependencies:
@@ -11491,7 +11568,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"use-latest-callback@npm:^0.2.1":
+"use-latest-callback@npm:^0.2.1, use-latest-callback@npm:^0.2.3":
   version: 0.2.4
   resolution: "use-latest-callback@npm:0.2.4"
   peerDependencies:

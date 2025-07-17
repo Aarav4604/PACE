@@ -1,4 +1,10 @@
 {
   "name": "PACEIOS",
-  "displayName": "PACE"
-} 
+  "displayName": "PACE",
+  "android": {
+    "package": "com.anonymous.paceios"
+  },
+  "ios": {
+    "bundleIdentifier": "com.anonymous.paceios"
+  }
+}

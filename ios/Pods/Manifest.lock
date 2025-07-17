@@ -1239,6 +1239,8 @@ PODS:
     - ReactCommon/turbomodule/bridging
     - ReactCommon/turbomodule/core
     - Yoga
+  - react-native-biometrics (3.0.1):
+    - React-Core
   - react-native-blur (4.4.1):
     - DoubleConversion
     - glog
@@ -1839,6 +1841,7 @@ DEPENDENCIES:
   - React-logger (from `../node_modules/react-native/ReactCommon/logger`)
   - React-Mapbuffer (from `../node_modules/react-native/ReactCommon`)
   - React-microtasksnativemodule (from `../node_modules/react-native/ReactCommon/react/nativemodule/microtasks`)
+  - react-native-biometrics (from `../node_modules/react-native-biometrics`)
   - "react-native-blur (from `../node_modules/@react-native-community/blur`)"
   - react-native-safe-area-context (from `../node_modules/react-native-safe-area-context`)
   - "react-native-slider (from `../node_modules/@react-native-community/slider`)"
@@ -1959,6 +1962,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/ReactCommon"
   React-microtasksnativemodule:
     :path: "../node_modules/react-native/ReactCommon/react/nativemodule/microtasks"
+  react-native-biometrics:
+    :path: "../node_modules/react-native-biometrics"
   react-native-blur:
     :path: "../node_modules/@react-native-community/blur"
   react-native-safe-area-context:
@@ -2079,6 +2084,7 @@ SPEC CHECKSUMS:
   React-logger: 80d87daf2f98bf95ab668b79062c1e0c3f0c2f8a
   React-Mapbuffer: acffb35a53a5f474ede09f082ac609b41aafab2e
   React-microtasksnativemodule: 71ca9282bce93b319218d75362c0d646b376eb43
+  react-native-biometrics: 43ed5b828646a7862dbc7945556446be00798e7d
   react-native-blur: 3d5dd1ed2dd810b304ac3bcee9cf7d460757c89b
   react-native-safe-area-context: 758e894ca5a9bd1868d2a9cfbca7326a2b6bf9dc
   react-native-slider: 2d536dca008ceebd5d5be1b838daf3e8739d762a

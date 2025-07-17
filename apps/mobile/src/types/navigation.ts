@@ -5,6 +5,7 @@ export type RootStackParamList = {
   Onboarding: undefined;
   Login: undefined;
   SignUp: undefined;
+  SignIn: undefined;
   LinkBroker: undefined;
   Tabs: undefined;
   PortfolioHoldings: { portfolioId: string } | undefined;

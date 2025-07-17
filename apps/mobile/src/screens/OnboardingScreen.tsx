@@ -68,7 +68,12 @@ export default function OnboardingScreen() {
         <TouchableOpacity
           style={styles.ctaBtn}
           activeOpacity={0.85}
-          onPress={() => navigation.navigate('SignUp')}
+          onPress={() => {
+            // Guard: only run once
+            if (!navigation.canGoBack()) {
+              navigation.replace('SignIn');
+            }
+          }}
         >
           <Text style={styles.ctaText}>Revolutionize Your Trading</Text>
         </TouchableOpacity>
