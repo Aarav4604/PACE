@@ -1,59 +1,51 @@
 import React from 'react';
-import { View, StyleSheet, TouchableOpacity } from 'react-native';
-import { BlurView } from '@react-native-community/blur';
-import { Home, Plus, BarChart4, User } from 'lucide-react-native';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import type { BottomTabBarProps } from '@react-navigation/bottom-tabs';
+import { View, TouchableOpacity, StyleSheet } from 'react-native';
+const FontAwesome5 = require('react-native-vector-icons/FontAwesome5').default;
 
-const tabs = [
-  { key: 'portfolios', icon: Home },
-  { key: 'build', icon: Plus },
-  { key: 'dashboard', icon: BarChart4 },
-  { key: 'account', icon: User },
-];
-
-const FloatingTabBar = React.memo(({ state, navigation }: BottomTabBarProps) => {
-  const { bottom } = useSafeAreaInsets();
-  const onPress = React.useCallback((route: string) => {
-    navigation.navigate(route as never);
-  }, [navigation]);
-
+export default function FloatingNavBar() {
   return (
-    <View pointerEvents="box-none" style={[StyleSheet.absoluteFill, { justifyContent: 'flex-end', alignItems: 'center' }]}> 
-      <BlurView style={[styles.wrap, { marginBottom: bottom + 12 }]} blurType="dark" blurAmount={16} reducedTransparencyFallbackColor="rgba(0,0,0,0.55)">
-        {tabs.map((t, idx) => {
-          const Icon = t.icon;
-          const focused = state.index === idx;
-          return (
-            <TouchableOpacity
-              key={t.key}
-              style={styles.btn}
-              onPress={() => onPress(t.key)}
-              activeOpacity={0.8}
-            >
-              <Icon size={20} color={focused ? '#fff' : '#6B7280'} />
-            </TouchableOpacity>
-          );
-        })}
-      </BlurView>
+    <View style={styles.wrapper}>
+      <View style={styles.bar}>
+        <TouchableOpacity style={styles.btn} accessibilityLabel="Home">
+          <FontAwesome5 name="home" size={20} color="#FFFFFF" />
+        </TouchableOpacity>
+
+        <TouchableOpacity style={styles.btn} accessibilityLabel="Portfolios">
+          <FontAwesome5 name="gem" size={20} color="#9CA3AF" />
+        </TouchableOpacity>
+
+        <TouchableOpacity style={styles.btn} accessibilityLabel="Account">
+          <FontAwesome5 name="th" size={20} color="#9CA3AF" />
+        </TouchableOpacity>
+      </View>
     </View>
   );
-});
-
-export default FloatingTabBar;
+}
 
 const styles = StyleSheet.create({
-  wrap: {
-    flexDirection: 'row',
-    backgroundColor: 'rgba(0,0,0,0.55)',
-    borderRadius: 36,
-    paddingHorizontal: 24,
-    paddingVertical: 14,
-    gap: 28,
+  // outer wrapper supplies deep shadow
+  wrapper: {
+    position: 'absolute',
+    bottom: 32,
+    alignSelf: 'center',
     shadowColor: '#000',
-    shadowOpacity: 0.25,
-    shadowRadius: 10,
-    shadowOffset: { width: 0, height: 6 },
+    shadowOffset: { width: 0, height: 16 },
+    shadowOpacity: 0.4,
+    shadowRadius: 24,
+    elevation: 24,
   },
-  btn: { width: 32, height: 32, alignItems: 'center', justifyContent: 'center' },
+  // pill itself
+  bar: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingHorizontal: 28,
+    paddingVertical: 10,
+    borderRadius: 40,                    // fully round
+    backgroundColor: 'rgba(0,0,0,0.85)', // translucent
+    overflow: 'hidden',
+  },
+  btn: {
+    marginHorizontal: 16,
+    padding: 12,                         // 44 px hit-area
+  },
 }); 

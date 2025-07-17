@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect, useContext } from 'react';
 import {
   View,
   Text,
@@ -21,17 +21,18 @@ import { useNavigation } from '@react-navigation/native';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import type { RootStackParamList } from '../types/navigation';
 import { AuthContext } from '../contexts/AuthContext';
+import { useUser } from '../contexts/UserContext';
 import AuthLayout from '../components/AuthLayout';
 
 const { width, height } = Dimensions.get('window');
 
 export default function LoginScreen() {
   const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
-  const { login } = React.useContext(AuthContext);
-  const [phoneNumber, setPhoneNumber] = useState('');
+  const { setUser } = useContext(AuthContext);
+  const { setUser: useUserSetUser } = useUser();
+  const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
-  const [dialCode, setDialCode] = useState('+1');
   const [isLoading, setIsLoading] = useState(false);
   const [errors, setErrors] = useState<any>({});
 
@@ -85,10 +86,8 @@ export default function LoginScreen() {
 
   const validateForm = () => {
     const newErrors: any = {};
-    if (!phoneNumber.trim()) {
-      newErrors.phoneNumber = 'Phone number is required';
-    } else if (phoneNumber.replace(/\D/g, '').length < 10) {
-      newErrors.phoneNumber = 'Please enter a valid phone number';
+    if (!username.trim()) {
+      newErrors.username = 'Name is required';
     }
     if (!password.trim()) {
       newErrors.password = 'Password is required';
@@ -119,8 +118,9 @@ export default function LoginScreen() {
     ]).start();
     
     try {
-      await login({ phone: dialCode + phoneNumber, password });
+      setUser({ name: username.trim() || 'NAME', email: '', avatar: undefined });
       Vibration.vibrate([100, 50, 100]);
+      navigation.replace('Tabs');
     } catch (error: any) {
       Alert.alert('Error', error.message || 'Sign in failed');
     } finally {
@@ -139,9 +139,9 @@ export default function LoginScreen() {
 
   const handlePhoneChange = (text: string) => {
     const formatted = formatPhoneNumber(text);
-    setPhoneNumber(formatted);
-    if (errors.phoneNumber) {
-      setErrors({ ...errors, phoneNumber: null });
+    setUsername(formatted);
+    if (errors.username) {
+      setErrors({ ...errors, username: null });
     }
   };
 
@@ -202,31 +202,22 @@ export default function LoginScreen() {
             </View>
 
             {/* Phone number input */}
-            <View style={styles.inputGroup}>
-              <View style={[styles.phoneInputContainer, errors.phoneNumber && styles.inputError]}>
-                <View style={styles.countrySelector}>
-                  <Text style={styles.countryCode}>{dialCode}</Text>
-                  {React.createElement(Icon as any, { name: "chevron-down", size: 16, color: "#fff" })}
-                </View>
-                <View style={{ flexDirection: 'row', alignItems: 'center', flex: 1 }}>
-                  {React.createElement(Icon as any, { name: "smartphone", size: 20, color: "#fff", marginRight: 12 })}
-                  <TextInput
-                    style={styles.phoneInput}
-                    placeholder="123 456 7890"
-                    placeholderTextColor="rgba(255, 255, 255, 0.7)"
-                    value={phoneNumber}
-                    onChangeText={handlePhoneChange}
-                    keyboardType="phone-pad"
-                    maxLength={12}
-                  />
-                </View>
-              </View>
-              {errors.phoneNumber && (
-                <Text style={styles.errorText}>
-                  {errors.phoneNumber}
-                </Text>
-              )}
+            <View style={[styles.phoneInputContainer, errors.username && styles.inputError]}>
+              <TextInput
+                style={styles.phoneInput}
+                placeholder="Enter your name"
+                placeholderTextColor="rgba(255, 255, 255, 0.7)"
+                value={username}
+                onChangeText={setUsername}
+                autoCapitalize="words"
+                maxLength={32}
+              />
             </View>
+            {errors.username && (
+              <Text style={styles.errorText}>
+                {errors.username}
+              </Text>
+            )}
 
             {/* Password input */}
             <View style={styles.inputGroup}>
@@ -512,7 +503,7 @@ const styles = StyleSheet.create({
     marginBottom: 8,
   },
   formContainer: {
-    padding: 32,
+    padding: 24,
     width: '100%',
   },
   signUpPrompt: {
@@ -666,8 +657,8 @@ const styles = StyleSheet.create({
   divider: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginTop: 24,
-    marginBottom: 24,
+    marginVertical: 24,
+    justifyContent: 'space-between',
   },
   dividerLine: {
     flex: 1,
@@ -680,15 +671,11 @@ const styles = StyleSheet.create({
     marginHorizontal: 16,
   },
   googleButton: {
-    backgroundColor: 'rgba(255, 255, 255, 0.1)',
-    borderWidth: 1,
-    borderColor: 'rgba(255, 255, 255, 0.2)',
-    borderRadius: 16,
-    paddingVertical: 16,
+    height: 50,
+    flexDirection: 'row',
     alignItems: 'center',
-    marginTop: 24,
-    marginBottom: 16,
-    elevation: 8,
+    justifyContent: 'center',
+    borderRadius: 14,
   },
   googleButtonContent: {
     flexDirection: 'row',

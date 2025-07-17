@@ -1,55 +1,30 @@
-import React from 'react';
+import React, { createContext, useState, useContext } from 'react';
 
-export const AuthContext = React.createContext<{
+export interface UserData {
+  name: string;
+  email: string;
+  avatar?: string;
+}
+
+interface AuthState {
   isAuthenticated: boolean;
-  user?: { name: string; email: string; avatar: string } | null;
-  login(credentials: { phone: string; password: string }): Promise<void>;
-  register(userData: any): Promise<void>;
-  logout(): void;
-}>({
+  user: UserData | null;
+  setUser: (u: UserData) => void;
+}
+
+export const AuthContext = createContext<AuthState>({
   isAuthenticated: false,
   user: null,
-  login: async () => {},
-  register: async () => {},
-  logout: () => {},
+  setUser: () => {},
 });
 
-export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
-  const [user, setUser] = React.useState<{ name: string; email: string; avatar: string } | null>(null);
-  
-  const login = async (credentials: { phone: string; password: string }) => {
-    // Backend stub - accept password '1234'
-    if (credentials.password === '1234') {
-      setUser({ 
-        name: 'Terry Melton', 
-        email: 'melton89@gmail.com', 
-        avatar: 'https://placehold.co/96x96' 
-      });
-    } else {
-      throw new Error('Invalid credentials');
-    }
-  };
-  
-  const register = async (userData: any) => {
-    // Simulate registration
-    setUser({ 
-      name: userData.name || 'New User', 
-      email: userData.email, 
-      avatar: 'https://placehold.co/96x96' 
-    });
-  };
-  
-  const logout = () => setUser(null);
-  
+export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+  const [user, setUser] = useState<UserData | null>(null);
   return (
-    <AuthContext.Provider value={{ 
-      isAuthenticated: !!user, 
-      user, 
-      login, 
-      register, 
-      logout 
-    }}>
+    <AuthContext.Provider value={{ isAuthenticated: !!user, user, setUser }}>
       {children}
     </AuthContext.Provider>
   );
-}; 
+};
+
+export const useAuth = () => useContext(AuthContext); 
